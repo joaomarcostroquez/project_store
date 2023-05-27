@@ -6,7 +6,7 @@ public class PlatformController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb2D;
     [SerializeField] private Transform target;
-    [SerializeField] private float speedMultiplier = 16f;
+    [SerializeField] private float speedMultiplier = 32f;
 
     private Material material;
     private Vector3 mOffset;
