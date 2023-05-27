@@ -16,7 +16,7 @@ public class PlatformController : MonoBehaviour
     {
         target.SetParent(null, true);
         rb2D.bodyType = RigidbodyType2D.Static;
-        gameObject.layer = 0;
+        gameObject.layer = 8;
         material = GetComponent<Renderer>().material;
     }
 
@@ -58,14 +58,25 @@ public class PlatformController : MonoBehaviour
 
     private void OnMouseUp()
     {
+        StartCoroutine(SetStatic());
+    }
+
+    private IEnumerator SetStatic()
+    {
+        gameObject.layer = 8;
+
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+
         target.position = transform.position;
 
         rb2D.velocity = Vector2.zero;
 
         rb2D.bodyType = RigidbodyType2D.Static;
 
-        gameObject.layer = 0;
-
         material.color = new Color(material.color.r, material.color.g, material.color.b, 1f);
+
+        yield return null;
     }
 }
