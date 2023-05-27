@@ -8,6 +8,7 @@ public class PlatformController : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private float speedMultiplier = 16f;
 
+    private Material material;
     private Vector3 mOffset;
     private float mZCoord;
 
@@ -15,6 +16,8 @@ public class PlatformController : MonoBehaviour
     {
         target.SetParent(null, true);
         rb2D.bodyType = RigidbodyType2D.Static;
+        gameObject.layer = 0;
+        material = GetComponent<Renderer>().material;
     }
 
     private void FixedUpdate()
@@ -30,6 +33,10 @@ public class PlatformController : MonoBehaviour
         mOffset = target.transform.position - GetMouseAsWorldPoint();
 
         rb2D.bodyType = RigidbodyType2D.Dynamic;
+
+        gameObject.layer = 7;
+
+        material.color = new Color(material.color.r, material.color.g, material.color.b, 0.5f);
     }
 
     private Vector3 GetMouseAsWorldPoint()
@@ -56,5 +63,9 @@ public class PlatformController : MonoBehaviour
         rb2D.velocity = Vector2.zero;
 
         rb2D.bodyType = RigidbodyType2D.Static;
+
+        gameObject.layer = 0;
+
+        material.color = new Color(material.color.r, material.color.g, material.color.b, 1f);
     }
 }
