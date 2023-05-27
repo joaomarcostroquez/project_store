@@ -4,15 +4,34 @@ using UnityEngine;
 
 public class PlatformController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Transform target;
+
+    private Vector3 mOffset;
+    private float mZCoord;
+
+    void OnMouseDown()
     {
-        
+        mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
+
+        // Store offset = gameobject world pos - mouse world pos
+        mOffset = gameObject.transform.position - GetMouseAsWorldPoint();
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private Vector3 GetMouseAsWorldPoint()
     {
-        
+        // Pixel coordinates of mouse (x,y)
+        Vector3 mousePoint = Input.mousePosition;
+
+        // z coordinate of game object on screen
+        mousePoint.z = mZCoord;
+
+        // Convert it to world points
+        return Camera.main.ScreenToWorldPoint(mousePoint);
+    }
+
+    void OnMouseDrag()
+    {
+        transform.position = GetMouseAsWorldPoint() + mOffset;
     }
 }
