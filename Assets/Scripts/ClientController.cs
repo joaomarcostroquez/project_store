@@ -57,5 +57,10 @@ public class ClientController : MonoBehaviour
         {
             txTimer.text = (Mathf.FloorToInt(timer / 60) + ":0" + Mathf.FloorToInt(timer % 60));
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }
