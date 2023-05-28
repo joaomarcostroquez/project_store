@@ -8,7 +8,7 @@ public class PlatformController : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private float speedMultiplier = 32f;
 
-    private Material material;
+    private Material[] materials;
     private Vector3 mOffset;
     private float mZCoord;
 
@@ -17,7 +17,7 @@ public class PlatformController : MonoBehaviour
         target.SetParent(null, true);
         rb2D.bodyType = RigidbodyType2D.Static;
         gameObject.layer = 8;
-        material = GetComponent<Renderer>().material;
+        materials = GetComponent<Renderer>().materials;
     }
 
     private void FixedUpdate()
@@ -36,7 +36,7 @@ public class PlatformController : MonoBehaviour
 
         gameObject.layer = 7;
 
-        material.color = new Color(material.color.r, material.color.g, material.color.b, 0.5f);
+        SetMaterialsAlpha(.5f);       
     }
 
     private Vector3 GetMouseAsWorldPoint()
@@ -75,8 +75,16 @@ public class PlatformController : MonoBehaviour
 
         rb2D.bodyType = RigidbodyType2D.Static;
 
-        material.color = new Color(material.color.r, material.color.g, material.color.b, 1f);
+        SetMaterialsAlpha(1f);
 
         yield return null;
+    }
+
+    private void SetMaterialsAlpha(float alpha)
+    {
+        foreach (Material material in materials)
+        {
+            material.color = new Color(material.color.r, material.color.g, material.color.b, alpha);
+        }
     }
 }
